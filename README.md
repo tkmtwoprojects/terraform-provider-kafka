@@ -21,6 +21,8 @@ Snippets I'm keeping around until I get a good Makefile groove
 
 == Reading List
 
+* https://github.com/hashicorp/terraform-provider-scaffolding
+
 * https://www.terraform.io/docs/extend/writing-custom-providers.html
 * https://www.terraform.io/docs/extend/writing-custom-providers.html#error-handling-amp-partial-state
 * https://www.terraform.io/guides/terraform-provider-development-program.html
