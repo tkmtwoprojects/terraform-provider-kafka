@@ -1,2 +1,6 @@
 *~
 build
+
+terraform.tfplan
+terraform.tfstate
+.terraform/
