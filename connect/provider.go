@@ -22,6 +22,7 @@ func Provider() *schema.Provider {
 			"url": {
 				Type:     schema.TypeString,
 				Required: true,
+				DefaultFunc: schema.EnvDefaultFunc("KAFKA_CONNECT_URL", ""),
 				ValidateFunc: func(val interface{}, key string) (warns []string, errs []error) {
 					v := val.(string)
 					if !strings.HasSuffix(v, "/") {
@@ -116,7 +117,7 @@ func buildEndpointParams(d *schema.ResourceData) url.Values {
 	for k, v := range cm {
 		vs := strings.Split(v.(string), ",")
 		for i := range vs {
-			log.Print("[DEBUG] Adding endpoint param '%q' -> '%q'", k, vs[i])
+			log.Printf("[DEBUG] Adding endpoint param '%q' -> '%q'", k, vs[i])
 			eps.Add(k, vs[i])
 		}
 	}
@@ -141,11 +142,11 @@ func buildHttpClient(d *schema.ResourceData) (*http.Client, error) {
 		// That assumption was probably wrong
 		//
 		log.Print("[DEBUG] Building oauth2 client")
-		log.Printf("URL   is         ", d.Get("url").(string))
-		log.Printf("CLIENTID is      ", d.Get("oauth2_auth_clientid").(string))
-		log.Printf("CLIENTSECRET is  ", d.Get("oauth2_auth_clientsecret").(string))
-		log.Printf("TOKENURL is      ", d.Get("oauth2_auth_tokenurl").(string))
-		log.Printf("PARAMS are       ", d.Get("oauth2_auth_params").(map[string]interface{}))
+		log.Print("URL   is         ", d.Get("url").(string))
+		log.Print("CLIENTID is      ", d.Get("oauth2_auth_clientid").(string))
+		log.Print("CLIENTSECRET is  ", d.Get("oauth2_auth_clientsecret").(string))
+		log.Print("TOKENURL is      ", d.Get("oauth2_auth_tokenurl").(string))
+		log.Print("PARAMS are       ", d.Get("oauth2_auth_params").(map[string]interface{}))
 
 		cfg := clientcredentials.Config{
 			ClientID:       d.Get("oauth2_auth_clientid").(string),
@@ -157,5 +158,6 @@ func buildHttpClient(d *schema.ResourceData) (*http.Client, error) {
 
 	}
 
-	return nil, nil
+	//return nil, nil
+	return &http.Client{}, nil
 }

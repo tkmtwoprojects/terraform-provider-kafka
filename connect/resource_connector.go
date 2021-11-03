@@ -47,7 +47,7 @@ func setNameFromID(d *schema.ResourceData, meta interface{}) ([]*schema.Resource
 
 
 //
-//Use Connectors.Update, even when "creating"
+// Create a connector
 //
 func connectorCreate(d *schema.ResourceData, meta interface{}) error {
 	c := meta.(*kc.Client)

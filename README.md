@@ -17,6 +17,8 @@ Snippets I'm keeping around until I get a good Makefile groove
 * go clean -testcache
 * go test -tags unit github.com/tkmtwoprojects/go-kafka/connect -v
 * go test -tags integration github.com/tkmtwoprojects/go-kafka/connect -v
+* TF_ACC=true TF_LOG=DEBUG go test ./... -v
+
 
 
 == Reading List
