@@ -2,7 +2,7 @@ package connect
 
 import (
 	"context"
-	"crypto/tls"
+	//"crypto/tls"
 	"fmt"
 	"log"
 	"net/http"
@@ -20,8 +20,8 @@ func Provider() *schema.Provider {
 	provider := schema.Provider{
 		Schema: map[string]*schema.Schema{
 			"url": {
-				Type:     schema.TypeString,
-				Required: true,
+				Type:        schema.TypeString,
+				Required:    true,
 				DefaultFunc: schema.EnvDefaultFunc("KAFKA_CONNECT_URL", ""),
 				ValidateFunc: func(val interface{}, key string) (warns []string, errs []error) {
 					v := val.(string)
@@ -126,10 +126,6 @@ func buildEndpointParams(d *schema.ResourceData) url.Values {
 }
 
 func buildHttpClient(d *schema.ResourceData) (*http.Client, error) {
-	//
-	//TODO: remove
-	//
-	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 
 	if (d.Get("oauth2_auth_clientid").(string) != "") &&
 		(d.Get("oauth2_auth_clientsecret").(string) != "") &&
@@ -141,12 +137,12 @@ func buildHttpClient(d *schema.ResourceData) (*http.Client, error) {
 		// assumed that we could set basic auth (or later mtls) here.
 		// That assumption was probably wrong
 		//
-		log.Print("[DEBUG] Building oauth2 client")
-		log.Print("URL   is         ", d.Get("url").(string))
-		log.Print("CLIENTID is      ", d.Get("oauth2_auth_clientid").(string))
-		log.Print("CLIENTSECRET is  ", d.Get("oauth2_auth_clientsecret").(string))
-		log.Print("TOKENURL is      ", d.Get("oauth2_auth_tokenurl").(string))
-		log.Print("PARAMS are       ", d.Get("oauth2_auth_params").(map[string]interface{}))
+		//log.Print("[DEBUG] Building oauth2 client")
+		//log.Print("URL   is         ", d.Get("url").(string))
+		//log.Print("CLIENTID is      ", d.Get("oauth2_auth_clientid").(string))
+		//log.Print("CLIENTSECRET is  ", d.Get("oauth2_auth_clientsecret").(string))
+		//log.Print("TOKENURL is      ", d.Get("oauth2_auth_tokenurl").(string))
+		//log.Print("PARAMS are       ", d.Get("oauth2_auth_params").(map[string]interface{}))
 
 		cfg := clientcredentials.Config{
 			ClientID:       d.Get("oauth2_auth_clientid").(string),
